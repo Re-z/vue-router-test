@@ -1,9 +1,18 @@
-import Home from './components/Home.vue';
-import About from './components/About.vue';
-import Info from './components/Info.vue';
+import UserComp from './Components/User.vue';
+import AboutComp from './Components/About/About_us.vue';
+import HomeComp from './Components/Home.vue';
+import AboutContentComp from './Components/About/About_content.vue';
 
 export const routes = [
-    {path: '', component: Home},
-    {path: '/about-url', component: About},
-    {path: '/info-url', component: Info},
+    { path:'/user',component: UserComp , children:[
+        { path:':id',component: UserComp, name: 'userProfile' }
+    ],beforeEnter: (to, from, next) => {
+        console.log('before enter from route');
+        next()
+    }},
+    { path: '/about_us',component: AboutComp, children:[
+        { path:'show', component: AboutContentComp }
+    ] },
+    { path: '',component: HomeComp, name:'home' },
+    { path: '*',component: HomeComp }
 ]
